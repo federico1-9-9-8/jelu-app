@@ -34,12 +34,23 @@ def generate_email_with_gemini(company_name, text):
     
     prompt = (
         f"""
-        Scrivi un'email formale e personalizzata indirizzata a **{company_name}**, da parte di JELU Consulting.
+        Scrivi un'email formale, strutturata, persuasiva e personalizzata indirizzata a **{company_name}**, da parte di JELU Consulting. Usa Emojies, grassetto, corsivo e sottolineato dove ritieni necessario.
         
-        JELU Consulting è una realtà nata nella LUISS Guido Carli, che si occupa di consulenza aziendale e innovazione strategica. 
-        Aiutiamo le aziende a crescere offrendo soluzioni personalizzate, con oltre 90 associati, 250 alumni e più di 20 partnership attive.
+        JELU Consulting è una Junior Enterprise formata dai migliori studenti della LUISS Guido Carli, che si occupa di consulenza aziendale e innovazione strategica. 
+        Aiutiamo le aziende a crescere offrendo soluzioni personalizzate ed a prezzi estremamente competitivi! 
+        Abbiamo oltre 90 associati, 250 alumni e più di 20 partnership attive.
+
+        I nostri servizi comprendono: 
+        Consulenza strategica: redazione del piano aziendale e finanziario, analisi finanziarie e di di mercato, valutazione investimenti, supporto a finanziamenti. 
+        Analisi e visualizzazione dati con Microsoft Power BI e assistenza all'integrazione dell'ingelligenza artificiale nei processi aziendali.
+        Consulenza vendite: analisi lead, gestione clienti (CRM), acquisizione e cura delle relazioni.
+        Servizi di Marketing strategico e operativo: piani, branding e analisi performance.
+        Gesione Social Media: marketing su social media per aumentare visibilità e clienti con inclusa gestione e monitoraggio.
+        Consulenza Legale: Strategie legali, contrattistica, consulenza fiscale e personale.
+        Public Affairs: Sentiment analysis, lobbying, monitoraggio legislativo e gesione eventi.
+        Siti web: costruzione o aggiornamento di siti web, e-commerce con chatbot AI integrati.
         
-        Di seguito trovi informazioni sull’azienda {company_name}, estratte dal suo sito web:
+        Di seguito trovi informazioni sull’azienda target {company_name}, estratte dal suo sito web:
         
         {text}
         
@@ -114,20 +125,18 @@ def invia_email(mittente, password, destinatario, oggetto, corpo):
         msg["From"] = mittente
         msg["To"] = destinatario
         msg["Subject"] = oggetto
-        msg["Bcc"] = mittente  # Bcc a se stessi
 
         msg.attach(MIMEText(corpo, "plain"))
 
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(mittente, password)
-            server.sendmail(mittente, [destinatario, mittente], msg.as_string())
+            server.sendmail(mittente, destinatario, msg.as_string())
 
-        print(f"✅ Email inviata a {destinatario} (e in copia a {mittente})")
+        print(f"✅ Email inviata a {destinatario}")
         return True
     except Exception as e:
         print(f"❌ Errore nell'invio a {destinatario}: {e}")
         return False
-
 
 
 if __name__ == "__main__":
