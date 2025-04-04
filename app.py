@@ -5,6 +5,7 @@ import os
 from estrattore_contatti import main as estrattore_main
 from postino import process_csv
 
+
 st.title("📬 Automazione JELU: da Excel all'email ✨")
 
 # Caricamento file Excel
